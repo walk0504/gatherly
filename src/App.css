@@ -1198,3 +1198,98 @@ footer {
     font-size: 12px;
   }
 }
+
+/* EVENT MANAGEMENT */
+
+.settings-form {
+  max-width: 700px;
+  margin-top: 30px;
+}
+
+.event-status {
+  display: inline-block;
+  padding: 9px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 700;
+  margin: 10px 0;
+}
+
+.event-status.open {
+  background: #fff1c2;
+  color: #795b13;
+}
+
+.event-status.finalized {
+  background: #d6eddc;
+  color: #245d35;
+}
+
+.event-status.cancelled {
+  background: #f8dada;
+  color: #963d3d;
+}
+
+.confirmed-event {
+  background: #e3eee3;
+  border: 1px solid #9fcba4;
+  border-radius: 20px;
+  padding: 30px;
+  margin: 25px 0;
+}
+
+.confirmed-event h2 {
+  font-size: 30px;
+  margin: 15px 0;
+}
+
+.final-date-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 25px 0;
+}
+
+.final-date-option {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: #fafbf9;
+  border: 2px solid #e4e8e2;
+  border-radius: 12px;
+  padding: 18px;
+  cursor: pointer;
+}
+
+.final-date-option.chosen {
+  background: #e3eee3;
+  border-color: #234d3c;
+}
+
+.final-date-option input {
+  accent-color: #234d3c;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.danger-zone hr {
+  border: none;
+  border-top: 1px solid #edc6c6;
+  margin: 25px 0;
+}
+
+@media (max-width: 500px) {
+  .confirmed-event {
+    padding: 20px;
+  }
+
+  .confirmed-event h2 {
+    font-size: 23px;
+  }
+
+  .final-date-option {
+    padding: 14px;
+    font-size: 14px;
+  }
+}

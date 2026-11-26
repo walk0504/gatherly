@@ -4,12 +4,14 @@ import { supabase } from './supabase'
 import Calendar from './Calendar'
 import Availability from './Availability'
 import Results from './Results'
+import EventSettings from './EventSettings'
 
 export default function Events({ session }) {
   const [circles, setCircles] = useState([])
   const [events, setEvents] = useState([])
   const [selectedEvent, setSelectedEvent] = useState(null)
   const [resultsEvent, setResultsEvent] = useState(null)
+  const [settingsEvent, setSettingsEvent] = useState(null)
   const [showCreate, setShowCreate] = useState(false)
   const [circleId, setCircleId] = useState('')
   const [title, setTitle] = useState('')
@@ -127,6 +129,18 @@ export default function Events({ session }) {
       setBusy(false)
     }
   }
+  if (settingsEvent) {
+  return (
+    <EventSettings
+      key={settingsEvent.id}
+      event={settingsEvent}
+      onBack={() => {
+        setSettingsEvent(null)
+        loadData()
+      }}
+    />
+  )
+}
 if (resultsEvent) {
   return (
     <Results
@@ -352,9 +366,32 @@ if (resultsEvent) {
                   ))}
               </div>
 
-              <p>
-                <strong>Status:</strong> {event.status}
-              </p>
+              
+<div className={`event-status ${event.status}`}>
+  {event.status === 'finalized'
+    ? '✓ Event Confirmed'
+    : event.status === 'cancelled'
+      ? 'Event Cancelled'
+      : event.response_deadline &&
+        new Date(event.response_deadline) <= new Date()
+        ? 'Voting Closed'
+        : 'Availability Voting Open'}
+</div>
+
+{event.status === 'finalized' && event.finalized_date && (
+  <div className="confirmed-event">
+    <div className="eyebrow">
+      OFFICIAL EVENT DATE
+    </div>
+
+    <h3>
+      {formatDate(event.finalized_date)}
+    </h3>
+
+    <p>It's official! Save the date.</p>
+  </div>
+)}
+
 
               {event.response_deadline && (
                 <p>
@@ -384,3 +421,11 @@ if (resultsEvent) {
     </section>
   )
 }
+{circles.some(circle => circle.id === event.circle_id) && (
+  <button
+    className="secondary-button auth-submit"
+    onClick={() => setSettingsEvent(event)}
+  >
+    ⚙ Manage Event
+  </button>
+)}
