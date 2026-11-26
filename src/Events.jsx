@@ -414,13 +414,6 @@ if (resultsEvent) {
 >
   View Results
 </button>
-            </div>
-          ))}
-        </div>
-      )}
-    </section>
-  )
-}
 {circles.some(circle => circle.id === event.circle_id) && (
   <button
     className="secondary-button auth-submit"
@@ -429,3 +422,10 @@ if (resultsEvent) {
     ⚙ Manage Event
   </button>
 )}
+            </div>
+          ))}
+        </div>
+      )}
+    </section>
+  )
+}
