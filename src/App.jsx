@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react'
 import { supabase } from './supabase'
 import Auth from './Auth'
+import Circles from './Circles'
 import './App.css'
 
 function App() {
@@ -59,9 +60,6 @@ function App() {
     )
   }
 
-  const fullName =
-    session?.user?.user_metadata?.full_name ||
-    'Gatherly Member'
 
   return (
     <div className="app">
@@ -189,26 +187,8 @@ function App() {
       )}
 
       {page === 'My Circles' && session && (
-        <section className="dashboard">
-          <div className="eyebrow">
-            YOUR GATHERLY DASHBOARD
-          </div>
-
-          <h1>Welcome, {fullName.split(' ')[0]}!</h1>
-
-          <h2>My Circles</h2>
-          <p>All your favorite people in one place.</p>
-
-          <div className="feature-card">
-            <span>👥</span>
-            <h3>Your Circles will appear here.</h3>
-            <p>
-              Soon you will be able to create
-              and join your own private Circles.
-            </p>
-          </div>
-        </section>
-      )}
+  <Circles session={session} />
+)}
 
       {page === 'My Events' && session && (
         <section className="dashboard">

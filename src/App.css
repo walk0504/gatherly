@@ -330,3 +330,124 @@ footer {
     padding: 25px;
   }
 }
+
+/* CIRCLES PAGE */
+
+.circle-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin: 30px 0;
+}
+
+.secondary-button {
+  background: white;
+  color: #234d3c;
+  border: 1px solid #234d3c;
+  border-radius: 12px;
+  padding: 14px 22px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.secondary-button:hover {
+  background: #e3eee3;
+}
+
+.circle-form {
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  border: 1px solid #e4e8e2;
+  max-width: 550px;
+  margin-bottom: 30px;
+}
+
+.circle-form h2 {
+  margin-top: 0;
+}
+
+.circle-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit, minmax(min(100%, 300px), 1fr)
+  );
+  gap: 22px;
+  margin-top: 30px;
+}
+
+.circle-card {
+  background: white;
+  border: 1px solid #e4e8e2;
+  border-radius: 20px;
+  padding: 28px;
+  box-shadow: 0 5px 20px #234d3c08;
+}
+
+.circle-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 18px;
+  background: #e3eee3;
+  color: #234d3c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: 800;
+}
+
+.circle-card h2 {
+  margin: 18px 0 8px;
+}
+
+.circle-role {
+  display: inline-block;
+  background: #e3eee3;
+  color: #234d3c;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.invite-section {
+  border-top: 1px solid #e4e8e2;
+  margin-top: 24px;
+  padding-top: 20px;
+}
+
+.invite-code {
+  background: #f8f7f2;
+  border-radius: 8px;
+  padding: 12px;
+  margin: 12px 0;
+  font-family: monospace;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+.invite-section button {
+  width: 100%;
+}
+
+.empty-circles {
+  text-align: center;
+  margin-top: 30px;
+}
+
+@media (max-width: 500px) {
+  .circle-actions {
+    flex-direction: column;
+  }
+
+  .circle-form {
+    padding: 20px;
+  }
+
+  .circle-card {
+    padding: 22px;
+  }
+}
