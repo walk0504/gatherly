@@ -985,3 +985,19 @@ footer {
     width: 100%;
   }
 }
+/* CIRCLE INVITATIONS */
+
+.invitation-icon {
+  font-size: 60px;
+  text-align: center;
+  margin: 20px 0;
+}
+.invitation-banner {
+  background: #234d3c;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  font-size: 15px;
+  line-height: 1.6;
+  font-weight: 600;
+}

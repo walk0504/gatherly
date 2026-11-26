@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import { supabase } from './supabase'
 
-export default function Auth({ onBack }) {
+export default function Auth({ onBack, inviteCode }) {
   const [isSignUp, setIsSignUp] = useState(false)
   const [fullName, setFullName] = useState('')
   const [email, setEmail] = useState('')
@@ -24,7 +24,9 @@ export default function Auth({ onBack }) {
             data: {
               full_name: fullName.trim()
             },
-            emailRedirectTo: window.location.origin
+            emailRedirectTo: inviteCode
+  ? `${window.location.origin}/?invite=${encodeURIComponent(inviteCode)}`
+  : window.location.origin
           }
         })
 

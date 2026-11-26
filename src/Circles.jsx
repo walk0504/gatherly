@@ -88,14 +88,40 @@ export default function Circles({ session }) {
     }
   }
 
-  async function copyInvite(code) {
-    try {
-      await navigator.clipboard.writeText(code)
-      setMessage('Invitation code copied!')
-    } catch {
-      setMessage('Unable to copy. Select the code manually.')
-    }
+  
+async function copyInvite(code) {
+  const link =
+    `https://joingatherly.netlify.app/?invite=${code}`
+
+  try {
+    await navigator.clipboard.writeText(link)
+    setMessage('Invitation link copied!')
+  } catch {
+    window.prompt('Copy your invitation link:', link)
   }
+}
+
+async function shareInvite(circle) {
+  const link =
+    `https://joingatherly.netlify.app/?invite=${circle.invite_code}`
+
+  if (navigator.share) {
+    try {
+      await navigator.share({
+        title: 'Join my Gatherly Circle!',
+        text: `Join ${circle.name} on Gatherly so we can find the best dates to get together!`,
+        url: link
+      })
+    } catch (error) {
+      if (error.name !== 'AbortError') {
+        await copyInvite(circle.invite_code)
+      }
+    }
+  } else {
+    await copyInvite(circle.invite_code)
+  }
+}
+
 
   return (
     <section className="dashboard">
@@ -245,8 +271,16 @@ export default function Circles({ session }) {
                   className="secondary-button"
                   onClick={() => copyInvite(circle.invite_code)}
                 >
-                  Copy Invitation Code
+                  Copy Invitation Link
                 </button>
+
+<button
+  className="primary-button auth-submit"
+  onClick={() => shareInvite(circle)}
+>
+  Share Invitation
+</button>
+
               </div>
             </div>
           ))}

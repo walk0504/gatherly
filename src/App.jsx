@@ -4,6 +4,7 @@ import { supabase } from './supabase'
 import Auth from './Auth'
 import Circles from './Circles'
 import Events from './Events'
+import Invitation from './Invitation'
 import './App.css'
 
 function App() {
@@ -11,6 +12,35 @@ function App() {
   const [session, setSession] = useState(null)
   const [loading, setLoading] = useState(true)
   const [authError, setAuthError] = useState('')
+
+const [pendingInvite, setPendingInvite] = useState(() => {
+  const params = new URLSearchParams(window.location.search)
+  const code = params.get('invite')
+
+  if (code) {
+    return code
+  }
+
+  return localStorage.getItem('gatherly_invite') || ''
+})
+
+useEffect(() => {
+  if (pendingInvite) {
+    localStorage.setItem('gatherly_invite', pendingInvite)
+  }
+}, [pendingInvite])
+
+function clearInvitation() {
+  localStorage.removeItem('gatherly_invite')
+  setPendingInvite('')
+
+  const url = new URL(window.location.href)
+  url.searchParams.delete('invite')
+  window.history.replaceState({}, '', url)
+
+  setPage('My Circles')
+}
+
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data, error }) => {
@@ -61,6 +91,35 @@ function App() {
     )
   }
 
+
+if (pendingInvite) {
+  return (
+    <div className="app">
+      {session ? (
+        <Invitation
+          code={pendingInvite}
+          onJoined={clearInvitation}
+          onCancel={clearInvitation}
+        />
+      ) : (
+        <>
+          <div className="invitation-banner">
+            You've been invited to join a Gatherly Circle!
+            Log in or create an account to continue.
+          </div>
+
+          <Auth
+            inviteCode={pendingInvite}
+            onBack={() => {
+              clearInvitation()
+              setPage('Home')
+            }}
+          />
+        </>
+      )}
+    </div>
+  )
+}
 
   return (
     <div className="app">
