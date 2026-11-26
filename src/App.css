@@ -1001,3 +1001,20 @@ footer {
   line-height: 1.6;
   font-weight: 600;
 }
+/* USERNAME REGISTRATION */
+
+.form-group small {
+  display: block;
+  margin-top: 8px;
+  color: #53685c;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.password-notice {
+  background: #fff1c2;
+  border-radius: 10px;
+  padding: 12px;
+  font-size: 12px;
+  line-height: 1.5;
+}
