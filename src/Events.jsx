@@ -2,10 +2,12 @@
 import { useState, useEffect } from 'react'
 import { supabase } from './supabase'
 import Calendar from './Calendar'
+import Availability from './Availability'
 
 export default function Events({ session }) {
   const [circles, setCircles] = useState([])
   const [events, setEvents] = useState([])
+  const [selectedEvent, setSelectedEvent] = useState(null)
   const [showCreate, setShowCreate] = useState(false)
   const [circleId, setCircleId] = useState('')
   const [title, setTitle] = useState('')
@@ -123,7 +125,19 @@ export default function Events({ session }) {
       setBusy(false)
     }
   }
-
+if (selectedEvent) {
+  return (
+    <Availability
+      key={selectedEvent.id}
+      event={selectedEvent}
+      session={session}
+      onBack={() => {
+        setSelectedEvent(null)
+        loadData()
+      }}
+    />
+  )
+}
   return (
     <section className="dashboard">
       <div className="eyebrow">MAKE MEMORIES</div>
@@ -335,6 +349,14 @@ export default function Events({ session }) {
                     .toLocaleString()}
                 </p>
               )}
+              <button
+  className="primary-button auth-submit"
+  onClick={() => setSelectedEvent(event)}
+>
+  {event.status === 'open'
+    ? 'My Availability'
+    : 'View My Availability'}
+</button>
             </div>
           ))}
         </div>
