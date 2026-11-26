@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { supabase } from './supabase'
 import Auth from './Auth'
 import Circles from './Circles'
+import Events from './Events'
 import './App.css'
 
 function App() {
@@ -189,19 +190,9 @@ function App() {
       {page === 'My Circles' && session && (
   <Circles session={session} />
 )}
-
-      {page === 'My Events' && session && (
-        <section className="dashboard">
-          <h1>My Events</h1>
-          <p>Keep track of your upcoming gatherings.</p>
-
-          <div className="feature-card">
-            <span>📅</span>
-            <h3>No upcoming events yet.</h3>
-            <p>Event creation coming soon!</p>
-          </div>
-        </section>
-      )}
+{page === 'My Events' && session && (
+  <Events session={session} />
+)}
 
       <footer>
         Gatherly · Less planning. More gathering.
