@@ -1,9 +1,11 @@
 
 import { useState, useEffect } from 'react'
 import { supabase } from './supabase'
+import CircleDetails from './CircleDetails'
 
 export default function Circles({ session }) {
   const [circles, setCircles] = useState([])
+  const [selectedCircle, setSelectedCircle] = useState(null)
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
   const [inviteCode, setInviteCode] = useState('')
@@ -122,7 +124,19 @@ async function shareInvite(circle) {
   }
 }
 
-
+if (selectedCircle) {
+  return (
+    <CircleDetails
+      key={selectedCircle.id}
+      circle={selectedCircle}
+      session={session}
+      onBack={() => {
+        setSelectedCircle(null)
+        loadCircles()
+      }}
+    />
+  )
+}
   return (
     <section className="dashboard">
       <div className="eyebrow">YOUR PEOPLE</div>
@@ -261,6 +275,12 @@ async function shareInvite(circle) {
                   : 'Circle Member'}
               </div>
 
+<button
+  className="primary-button auth-submit"
+  onClick={() => setSelectedCircle(circle)}
+>
+  Open Circle →
+</button>
               <div className="invite-section">
                 <strong>Invitation Code</strong>
                 <div className="invite-code">
