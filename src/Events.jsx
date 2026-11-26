@@ -3,11 +3,13 @@ import { useState, useEffect } from 'react'
 import { supabase } from './supabase'
 import Calendar from './Calendar'
 import Availability from './Availability'
+import Results from './Results'
 
 export default function Events({ session }) {
   const [circles, setCircles] = useState([])
   const [events, setEvents] = useState([])
   const [selectedEvent, setSelectedEvent] = useState(null)
+  const [resultsEvent, setResultsEvent] = useState(null)
   const [showCreate, setShowCreate] = useState(false)
   const [circleId, setCircleId] = useState('')
   const [title, setTitle] = useState('')
@@ -125,7 +127,19 @@ export default function Events({ session }) {
       setBusy(false)
     }
   }
-if (selectedEvent) {
+if (resultsEvent) {
+  return (
+    <Results
+      key={resultsEvent.id}
+      event={resultsEvent}
+      onBack={() => {
+        setResultsEvent(null)
+        loadData()
+      }}
+    />
+  )
+}
+  if (selectedEvent) {
   return (
     <Availability
       key={selectedEvent.id}
@@ -356,6 +370,12 @@ if (selectedEvent) {
   {event.status === 'open'
     ? 'My Availability'
     : 'View My Availability'}
+</button>
+<button
+  className="secondary-button auth-submit"
+  onClick={() => setResultsEvent(event)}
+>
+  View Results
 </button>
             </div>
           ))}
